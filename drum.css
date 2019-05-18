@@ -1,0 +1,15 @@
+.drum-cell {
+    width: 50px;
+}
+.tempo {
+    width: 75px;
+}
+input[type="text"].current-step,
+input[type="text"].current-step.odd{
+    background-color: #E4572E;
+    /*outline: 0;*/
+}
+
+input[type="text"].odd {
+    background-color: #F1F1F1;
+}

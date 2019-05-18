@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Alexander Letourneau</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <!--<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">-->
+  <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display" rel="stylesheet">
+  <!--<link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">-->
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="../css/normalize.css">
+  <link rel="stylesheet" href="../css/skeleton.css">
+  <link rel="stylesheet" href="../css/custom.css">
+  <link rel="stylesheet" href="drum.css">
+
+  <!-- JS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script type="application/javascript" src="drum.js"></script>
+  <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/showdown@1.9.0/dist/showdown.min.js"></script>
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="../images/favicon.png">
+
+</head>
+<body>
+  <audio data-key="k" src="snd/909bd.wav"></audio>
+  <audio data-key="h" src="snd/909hh.wav"></audio>
+  <audio data-key="c" src="snd/909cp.wav"></audio>
+  <audio data-key="o" src="snd/909hho.wav"></audio>
+  <audio data-key="1" src="snd/berlin-chord-1.wav"></audio>
+  <audio data-key="2" src="snd/berlin-chord-2.wav"></audio>
+  <audio data-key="3" src="snd/berlin-chord-3.wav"></audio>
+  <audio data-key="d" src="snd/bass-d.wav"></audio>
+  <div id="drum-container">
+    <input type="text" id="1-a" class="drum-cell odd"/>
+    <input type="text" id="2-a" class="drum-cell odd"/>
+    <input type="text" id="3-a" class="drum-cell odd"/>
+    <input type="text" id="4-a" class="drum-cell odd"/>
+    <input type="text" id="5-a" class="drum-cell"/>
+    <input type="text" id="6-a" class="drum-cell"/>
+    <input type="text" id="7-a" class="drum-cell"/>
+    <input type="text" id="8-a" class="drum-cell"/>
+    <input type="text" id="9-a" class="drum-cell odd"/>
+    <input type="text" id="10-a" class="drum-cell odd"/>
+    <input type="text" id="11-a" class="drum-cell odd"/>
+    <input type="text" id="12-a" class="drum-cell odd"/>
+    <input type="text" id="13-a" class="drum-cell"/>
+    <input type="text" id="14-a" class="drum-cell"/>
+    <input type="text" id="15-a" class="drum-cell"/>
+    <input type="text" id="16-a" class="drum-cell"/>
+    <!--<input type="button" id="start-stop" value="start"/>-->
+  </div>
+  <div id="transport">
+    <input type="text" id="tempo" class="tempo"/>
+  </div>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+<script>
+  (function(){init()})()
+</script>
+</html>
