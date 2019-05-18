@@ -3,6 +3,7 @@
 
 *Drum sequencers are for nerds*
 
+
 ### Sounds
 The fundemental building blocks of a sequence
 
@@ -11,11 +12,13 @@ The fundemental building blocks of a sequence
 | `k`       | 909 kick        |
 | `h`       | 909 hh          |
 | `c`       | 909 clap        |
+| `o`       | 909 hh open     |
 | `1`       | G minor 7 chord |
 | `2`       | A minor 7 chord |
 | `3`       | D minor 7 chord |
+| `d`       | D bass note     |
 
-### Functions
+### Functions (not yet implemented)
 
 `+` Make sound louder
 
