@@ -3,7 +3,7 @@
 
 *Drum sequencers are for nerds*
 
-(Demo)[http://alexanderletourneau.com/drum/]
+[Demo](http://alexanderletourneau.com/drum/)
 
 
 ### Sounds
