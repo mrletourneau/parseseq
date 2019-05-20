@@ -1,4 +1,4 @@
-# DrumParse
+# ParseSeq
 *~~A drum sequencer for nerds~~*
 
 *Drum sequencers are for nerds*
