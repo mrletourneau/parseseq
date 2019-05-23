@@ -1,9 +1,5 @@
 console.log("PARSESEQ")
 
-/*
-https://stackoverflow.com/questions/29971898/how-to-create-an-accurate-timer-in-javascript
- */
-
 var parseSeq = {};
 
 (function() {
@@ -12,7 +8,35 @@ var parseSeq = {};
     var tempoMs = bpmToMilliseconds(tempo);
 
     let tempoBox;
+    let ticker;
 
+
+    // Stolen from https://stackoverflow.com/questions/29971898/how-to-create-an-accurate-timer-in-javascript
+    function AdjustingInterval(workFunc, interval, errorFunc) {
+        var that = this;
+        var expected, timeout;
+        this.interval = interval;
+
+        this.start = function() {
+            expected = Date.now() + this.interval;
+            timeout = setTimeout(step, this.interval);
+        }
+
+        this.stop = function() {
+            clearTimeout(timeout);
+        }
+
+        function step() {
+            var drift = Date.now() - expected;
+            if (drift > that.interval) {
+                // You could have some default stuff here too...
+                if (errorFunc) errorFunc();
+            }
+            workFunc();
+            expected += that.interval;
+            timeout = setTimeout(step, Math.max(0, that.interval-drift));
+        }
+    }
 
     function playStep(stepBox) {
         const soundKeys = stepBox.value;
@@ -83,7 +107,7 @@ var parseSeq = {};
             step++;
         }
 
-        setTimeout(executeNext, tempoMs)
+        //setTimeout(executeNext, tempoMs)
     }
 
     function bpmToMilliseconds(bpm) {
@@ -100,6 +124,8 @@ var parseSeq = {};
         if (!isNaN(newBpm)) {
             tempo = newBpm;
             tempoMs = bpmToMilliseconds(tempo);
+            ticker.interval = tempoMs;
+
         } else {
             // If not a number, change it back to old tempo
             tempoBox.value = tempo;
@@ -111,6 +137,9 @@ var parseSeq = {};
 
         tempoBox.value = tempo;
         tempoBox.onchange = tempoChangeEvent;
+
+        ticker = new AdjustingInterval(executeNext, tempoMs);
+        ticker.start();
 
         executeNext();
     }
