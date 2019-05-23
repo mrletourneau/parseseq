@@ -1,0 +1,10 @@
+{
+  "version": "1.0",
+  "type": "rich",
+  "provider_name": "AlexanderLetourneau.com",
+  "provider_url": "http://alexanderletourneau.com",
+  "title": "ParseSeq Drum Sequencer",
+  "author_name": "Alexander Letourneau",
+  "author_url": "http://alexanderletourneau.com",
+  "html": "<iframe src='http://alexanderletourneau.com/code/drum'></iframe>"
+}
