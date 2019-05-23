@@ -50,11 +50,39 @@ var parseSeq = {};
         });
     }
 
+    function playSound(soundKey) {
+        const audio = document.querySelector(`audio[data-key="${soundKey}"]`);
+
+        if (!audio) return;
+
+        audio.currentTime = 0;
+
+        audio.play();
+    }
+
+    function executeNextStep() {
+        const stepBox = document.getElementById(step + "-a");
+        const lastStep = document.getElementsByClassName('current-step');
+
+        if (lastStep[0]) {
+            lastStep[0].classList.remove('current-step');
+        }
+
+        stepBox.classList.add('current-step');
+
+        playStep(stepBox);
+
+        if (step == 16) {
+            step = 1;
+        } else {
+            step++;
+        }
+    }
+
     function parseStep(soundKeys) {
         var currentToken = soundKeys[0];
 
         soundKeys = soundKeys.splice(1);
-
 
         if (isSoundToken(currentToken)) {
             playSound(currentToken);
@@ -79,37 +107,6 @@ var parseSeq = {};
         }
     }
 
-    function playSound(soundKey) {
-        const audio = document.querySelector(`audio[data-key="${soundKey}"]`);
-
-        if (!audio) return;
-
-        audio.currentTime = 0;
-
-        audio.play();
-    }
-
-    function executeNext() {
-        const stepBox = document.getElementById(step + "-a");
-        const lastStep = document.getElementsByClassName('current-step');
-
-        if (lastStep[0]) {
-            lastStep[0].classList.remove('current-step');
-        }
-
-        stepBox.classList.add('current-step');
-
-        playStep(stepBox);
-
-        if (step == 16) {
-            step = 1;
-        } else {
-            step++;
-        }
-
-        //setTimeout(executeNext, tempoMs)
-    }
-
     function bpmToMilliseconds(bpm) {
         return 60000 / bpm / 4;
     }
@@ -132,16 +129,17 @@ var parseSeq = {};
         }
     }
 
-    function init() {
+    function buildTempoBox(){
         tempoBox = document.getElementById("tempo");
-
         tempoBox.value = tempo;
         tempoBox.onchange = tempoChangeEvent;
+    }
 
-        ticker = new AdjustingInterval(executeNext, tempoMs);
+    function init() {
+        buildTempoBox();
+
+        ticker = new AdjustingInterval(executeNextStep, tempoMs);
         ticker.start();
-
-        executeNext();
     }
 
     parseSeq.init = init;
