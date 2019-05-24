@@ -143,4 +143,7 @@ var parseSeq = {};
     }
 
     parseSeq.init = init;
+    parseSeq.test = function(){ return true; };
+
+    exports.test = parseSeq.test;
 })();
