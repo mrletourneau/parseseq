@@ -3,6 +3,8 @@
 
 *Drum sequencers are for nerds*
 
+![ParseSeq in action](https://github.com/mrletourneau/parseseq/blob/master/img/glam.png)
+
 [Demo](http://alexanderletourneau.com/drum/)
 
 
