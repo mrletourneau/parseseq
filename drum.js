@@ -187,9 +187,19 @@ var parseSeq = {};
         };
     }
 
+    function buildClearButton(){
+        const clearButton = document.getElementById("clear");
+        clearButton.onclick = () => {
+            document.querySelectorAll("input.drum-cell").forEach((input) => {
+                input.value = "";
+            })
+        };
+    }
+
     function init() {
         buildTempoBox();
         buildStartButton();
+        buildClearButton();
 
         console.log( loadSamples() );
 
