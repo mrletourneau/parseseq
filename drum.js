@@ -3,12 +3,42 @@ console.log("PARSESEQ")
 var parseSeq = {};
 
 (function() {
-    var step = 1;
-    var tempo = 120;
-    var tempoMs = bpmToMilliseconds(tempo);
-
+    let sampleList = {
+        1: "berlin-chord-1.wav",
+        2: "berlin-chord-2.wav",
+        3: "berlin-chord-3.wav",
+        'k': "909bd.wav",
+        'c': "909cp.wav",
+        'o': "909hho.wav",
+        'h': "909hh.wav",
+        'd': "bass-d.wav"
+    };
+    let sampleSet = {};
+    let step = 1;
+    let tempo = 120;
+    let tempoMs = bpmToMilliseconds(tempo);
     let tempoBox;
     let ticker;
+
+    const audioContext = new AudioContext();
+
+    // fetch the audio file and decode the data
+    async function getFile(audioContext, filepath) {
+        const response = await fetch(filepath);
+        const arrayBuffer = await response.arrayBuffer();
+        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+        return audioBuffer;
+    }
+
+
+    async function loadSamples() {
+        Object.keys(sampleList).forEach(async (key) => {
+            let filePath = "snd/" + sampleList[key];
+            const sample = await getFile(audioContext, filePath);
+
+            sampleSet[key] = sample;
+        });
+    }
 
 
     // Stolen from https://stackoverflow.com/questions/29971898/how-to-create-an-accurate-timer-in-javascript
@@ -46,19 +76,20 @@ var parseSeq = {};
         }
 
         soundKeys.split('').forEach(function (soundKey) {
-            playSound(soundKey);
+            playSound(sampleSet[soundKey]);
         });
     }
 
-    function playSound(soundKey) {
-        const audio = document.querySelector(`audio[data-key="${soundKey}"]`);
-
-        if (!audio) return;
-
-        audio.currentTime = 0;
-
-        audio.play();
+    function playSound(audioBuffer) {
+        const sampleSource = audioContext.createBufferSource();
+        sampleSource.buffer = audioBuffer;
+        sampleSource.playbackRate.setValueAtTime(1, audioContext.currentTime);
+        sampleSource.connect(audioContext.destination)
+        sampleSource.start();
+        return sampleSource;
     }
+
+
 
     function executeNextStep() {
         const stepBox = document.getElementById(step + "-a");
@@ -135,15 +166,41 @@ var parseSeq = {};
         tempoBox.onchange = tempoChangeEvent;
     }
 
+    function buildStartButton(){
+        const startButton = document.getElementById("start");
+        startButton.dataset.state = 'stopped';
+        startButton.onclick = () => {
+            const state = startButton.dataset.state;
+            if (state === 'stopped')
+            {
+                ticker.start();
+                startButton.value = 'stop';
+                startButton.dataset.state = 'started';
+                audioContext.resume();
+            }
+            else if (state === 'started')
+            {
+                ticker.stop();
+                startButton.value = 'start';
+                startButton.dataset.state = 'stopped';
+            }
+        };
+    }
+
     function init() {
         buildTempoBox();
+        buildStartButton();
+
+        console.log( loadSamples() );
 
         ticker = new AdjustingInterval(executeNextStep, tempoMs);
-        ticker.start();
+        //ticker.start();
     }
+
 
     parseSeq.init = init;
     parseSeq.test = function(){ return true; };
 
-    exports.test = parseSeq.test;
+    // if (exports != undefined)
+    //     exports.test = parseSeq.test;
 })();
