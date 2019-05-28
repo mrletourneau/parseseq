@@ -197,30 +197,39 @@ var parseSeq = {};
     }
 
     function save() {
-        var values = [];
+        var beat = [];
         var drumCells = document.getElementsByClassName("drum-cell");
         for (var i = 0; i < drumCells.length; i++) {
-            values.push(drumCells[i].value);
+            beat.push(drumCells[i].value);
         }
-        return JSON.stringify(values);
+        var tempo = parseInt(document.getElementById('tempo').value, 10);
+        var beatSave = document.getElementById('beat-save');
+        beatSave.value = JSON.stringify({beat: beat, tempo: tempo});
+    }
+
+    function load() {
+        var beatSave = document.getElementById('beat-save');
+        var patch = JSON.parse(beatSave.value);
+
+        var drumCells = document.getElementsByClassName("drum-cell");
+        for (var i = 0; i < 16; i++) {
+            drumCells[i].value = patch.beat[i];
+        }
+
+        document.getElementById('tempo').value = patch.tempo;
     }
 
     function buildLoadButton(){
         const loadButton = document.getElementById("load");
         loadButton.onclick = () => {
-            var values = document.getElementById("beat-save").value;
-            values = JSON.parse(values);
-            var drumCells = document.getElementsByClassName("drum-cell");
-            for (var i = 0; i < 16; i++) {
-                drumCells[i].value = values[i];
-            }
+            load();
         };
     }
 
     function buildSaveButton() {
         const saveButton = document.getElementById("save");
         saveButton.onclick = () => {
-            document.getElementById("beat-save").value = save();
+            save();
         };
     }
 
@@ -230,8 +239,6 @@ var parseSeq = {};
         buildClearButton();
         buildLoadButton();
         buildSaveButton();
-
-        console.log( loadSamples() );
 
         ticker = new AdjustingInterval(executeNextStep, tempoMs);
         //ticker.start();
