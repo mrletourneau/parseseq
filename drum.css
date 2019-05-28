@@ -13,3 +13,17 @@ input[type="text"].current-step.odd{
 input[type="text"].odd {
     background-color: #F1F1F1;
 }
+
+#beat-save {
+    width: 50%;
+    margin-bottom: 0;
+    display: inline-block;
+    position: relative;
+}
+
+.save {
+    margin-bottom:0;
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+}

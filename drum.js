@@ -196,10 +196,40 @@ var parseSeq = {};
         };
     }
 
+    function save() {
+        var values = [];
+        var drumCells = document.getElementsByClassName("drum-cell");
+        for (var i = 0; i < drumCells.length; i++) {
+            values.push(drumCells[i].value);
+        }
+        return JSON.stringify(values);
+    }
+
+    function buildLoadButton(){
+        const loadButton = document.getElementById("load");
+        loadButton.onclick = () => {
+            var values = document.getElementById("beat-save").value;
+            values = JSON.parse(values);
+            var drumCells = document.getElementsByClassName("drum-cell");
+            for (var i = 0; i < 16; i++) {
+                drumCells[i].value = values[i];
+            }
+        };
+    }
+
+    function buildSaveButton() {
+        const saveButton = document.getElementById("save");
+        saveButton.onclick = () => {
+            document.getElementById("beat-save").value = save();
+        };
+    }
+
     function init() {
         buildTempoBox();
         buildStartButton();
         buildClearButton();
+        buildLoadButton();
+        buildSaveButton();
 
         console.log( loadSamples() );
 
